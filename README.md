@@ -20,7 +20,43 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consist of 7 steps. Firstly, image converted to grayscale, then apply gaussian_blur function for gaussian smoothing. Next stange was to do edge detection using opencv canny function. Then output feeded into region_of_interest method to filter the region for processing.
+My pipeline consist of 7 steps.
+
+```
+def pipeline(img, vertices, kernel_size = 3, low_threshold = 40, high_threshold =100, rho = 2, threshold = 50, min_line_length = 10, max_line_gap = 20):
+    gray_image = grayscale(img)
+    blur_gray_image = gaussian_blur(gray_image, 5)
+
+    #Edge detection using canny algorithm
+    canny_image = canny(blur_gray_image, low_threshold, high_threshold)
+
+    #finding region for prcessing
+    masked_canny_image = region_of_interest(canny_image, vertices)
+
+    # Define the Hough transform parameters
+    theta = np.pi/180 # angular resolution in radians of the Hough grid
+
+    #Hough lines
+    lines = hough_lines(masked_canny_image, rho, theta, threshold, min_line_length, max_line_gap)
+
+    #Blank image to draw the lines
+    line_img = np.zeros((img.shape[0], img.shape[1], kernel_size), dtype=np.uint8)
+
+    #Draw left and right images
+    draw_left_right_lanes(lines, line_img, img, [255, 0, 0], 15)
+
+    # Display the image
+    plt.imshow(line_img, cmap='Greys_r')
+
+    #combine the images
+    final_image = weighted_img(line_img, img, 1.0, .95, 0.0)
+
+    return final_image
+
+```
+
+
+Firstly, image converted to grayscale, then apply gaussian_blur function for gaussian smoothing. Next stange is to do edge detection using opencv canny function. Then output feeded into region_of_interest method to filter the region for processing.
 
 Grayscale:
 
