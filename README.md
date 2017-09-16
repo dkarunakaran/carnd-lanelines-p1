@@ -89,6 +89,8 @@ def draw_left_right_lanes(lines, line_img, actual_img, color, thickness):
 
 ```
 
+avergaing method:
+
 ```
 def averaging_lane_lines(lines):
     ll = []
@@ -112,6 +114,8 @@ def averaging_lane_lines(lines):
     right_lane = np.dot(rw, rl)/np.sum(rw)
     return left_lane, right_lane
 ```
+
+Finding starting and ending points for the lines to be drawn
 
 ```
 def find_line_points(line, actual_img):
