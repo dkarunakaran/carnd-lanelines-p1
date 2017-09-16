@@ -26,7 +26,7 @@ The goals / steps of this project are the following:
 
 My pipeline consist of 7 steps. Firstly, image converted to grayscale, then apply gaussian_blur function for gaussian smoothing. Next stange was to do edge detection using opencv canny function. Then output feeded into region_of_interest method to filter the region for processing.
 
-![alt text][cannyimage]
+<img src="other_images/gray_scale.png" width="480" alt="Combined Image" />
 
 
 Next step is to input the canny image to hough_lines method and output will be list of line segments.
