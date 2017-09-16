@@ -23,12 +23,15 @@ The goals / steps of this project are the following:
 My pipeline consist of 7 steps. Firstly, image converted to grayscale, then apply gaussian_blur function for gaussian smoothing. Next stange was to do edge detection using opencv canny function. Then output feeded into region_of_interest method to filter the region for processing.
 
 Grayscale:
+
 <img src="other_images/gray_scale.png" width="480" alt="grayscale image" />
 
 Canny:
+
 <img src="other_images/canny_image.png" width="480" alt="canny image" />
 
 Region of Interest:
+
 <img src="other_images/region_of_interest.png" width="480" alt="region of interest image" />
 
 
