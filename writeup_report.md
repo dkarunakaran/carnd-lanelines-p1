@@ -74,7 +74,7 @@ Region of Interest:
 Next step is to input the canny image to hough_lines method and output will be list of line segments.
 
 
-For averaging and extrapolating functionality, I created a function called draw_left_right_lanes which takes a blank placeholder input, actual image, hough lines, color, and thickness of the lines need to be drawn as input. There are two tasks for this function. one is for seperating into left ang right lanes and averaging both seperately.The left lane should have a positive slope, and the right lane should have a negative slope. Therefore, we will collect positive slope lines and negative slope lines separately and take averages. This is done by averaging_lane_lines. Second task is to findout starting and ending points for left and right lanes to draw the lines.
+For averaging and extrapolating functionality, I created a function called draw_left_right_lanes which takes a blank placeholder input, actual image, hough lines, color, and thickness of the lines need to be drawn as input. There are two tasks for this function. one is for seperating into left ang right lanes and averaging both seperately.The left lane should have a positive slope, and the right lane should have a negative slope. Therefore, we will collect positive slope lines and negative slope lines separately and take averages. This is done by averaging_lane_lines. Second task is to findout start and end points for left and right lanes to draw the lines.
 
 ```
 def draw_left_right_lanes(lines, line_img, actual_img, color, thickness):
@@ -89,7 +89,7 @@ def draw_left_right_lanes(lines, line_img, actual_img, color, thickness):
 
 ```
 
-avergaing method:
+Averaging method:
 
 ```
 def averaging_lane_lines(lines):
@@ -115,7 +115,7 @@ def averaging_lane_lines(lines):
     return left_lane, right_lane
 ```
 
-Finding starting and ending points for the lines to be drawn
+Finding start and end points for the lines to be drawn
 
 ```
 def find_line_points(line, actual_img):
