@@ -76,6 +76,58 @@ Next step is to input the canny image to hough_lines method and output will be l
 
 For averaging and extrapolating functionality, I created a function called draw_left_right_lanes which takes a blank placeholder input, actual image, hough lines, color, and thickness of the lines need to be drawn as input. There are two tasks for this function. one is for seperating into left ang right lanes and averaging both seperately.The left lane should have a positive slope, and the right lane should have a negative slope. Therefore, we will collect positive slope lines and negative slope lines separately and take averages. This is done by averaging_lane_lines. Second task is to findout starting and ending points for left and right lanes to draw the lines.
 
+```
+def draw_left_right_lanes(lines, line_img, actual_img, color, thickness):
+    left_lane, right_lane = averaging_lane_lines(lines)
+    #left lane
+    XY1, XY2 = find_line_points(left_lane, actual_img)
+    draw_lines(line_img, XY1, XY2, color, thickness)
+
+    #right lane
+    XY1,XY2 = find_line_points(right_lane, actual_img)
+    draw_lines(line_img, XY1, XY2, color, thickness)
+
+```
+
+```
+def averaging_lane_lines(lines):
+    ll = []
+    lw = []
+    rl = []
+    rw = []
+    for line in lines:
+        for x1,y1,x2,y2 in line:
+            if x2==x1:
+                continue
+            slope = (y2-y1)/(x2-x1)
+            intercept = y1 - slope*x1
+            length = np.sqrt((y2-y1)**2+(x2-x1)**2)
+            if slope < 0:
+                ll.append((slope, intercept))
+                lw.append((length))
+            else:
+                rl.append((slope, intercept))
+                rw.append((length))
+    left_lane  = np.dot(lw, ll) /np.sum(lw)
+    right_lane = np.dot(rw, rl)/np.sum(rw)
+    return left_lane, right_lane
+```
+
+```
+def find_line_points(line, actual_img):
+    slope, intercept = line
+    y1 = actual_img.shape[0] #bottom
+    y2 = y1*0.6 #middle point
+
+    #finding starting and end line points
+    x1 = int((y1 - intercept)/slope)
+    x2 = int((y2 - intercept)/slope)
+    y1 = int(y1)
+    y2 = int(y2)
+
+    return ((x1, y1), (x2, y2))
+```
+
 
 Finally weighted_img function to combine the line drawn and actual image.
 
